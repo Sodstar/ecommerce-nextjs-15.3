@@ -1,103 +1,240 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Award, ChevronRight, Download, Shield } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { featuredProducts } from "@/data/dummies";
+import { getAllCategories } from "@/actions/category-action";
+import { getFilteredProducts } from "@/actions/product-action";
 
-export default function Home() {
+export default async function Home() {
+  const categories = await getAllCategories();
+  const limit =4;
+  let featuredProducts = await getFilteredProducts({limit});
+  if (typeof featuredProducts === 'string') {
+    featuredProducts = JSON.parse(featuredProducts);
+  }
+  if (!Array.isArray(featuredProducts)) {
+    featuredProducts = [];
+  }
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div>
+      <section className="bg-gradient-to-r from-orange-400 to-green-700 text-white">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                Дуут шувуу - Сэтгэл зүйн төв
+              </h1>
+              <p className="text-xl mb-8 text-blue-100">
+                Манай сэтгэл судлалын төв нь судалгааны аргуудыг бусадтай
+                хуваалцах, сэтгэл зүйн хүрээн хэрэглэх бараа бүтээгдэхүүн
+                түгээх. хэрэгцээт зөвөлгөө нийлэл болон сэтгэл зүйн зөвөлгөөний
+                үйлчилгээ үзүүлдэг.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button
+                  size="lg"
+                  className="bg-white text-orange-600 hover:bg-blue-50 cursor-pointer"
+                >
+                  Судалгааны аргууд
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-gray-600 border-white hover:text-orange-600 cursor-pointer"
+                >
+                  Холбоо барих
+                </Button>
+              </div>
+            </div>
+            <div className="hidden md:flex justify-end  absolute right-0">
+              <img
+                src="/banner-bg.png"
+                alt="Digital marketplace illustration"
+                className="rounded-lg w-[320px] h-auto"
+              />
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Categories Section */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold">Төрөл ангиллууд</h2>
+            <Link
+              href="/categories"
+              className="text-orange-500 hover:text-orange-600 flex items-center font-semibold"
+            >
+              Бүх ангилал <ChevronRight className="h-4 w-4 ml-1" />
+            </Link>
+          </div>
+
+          <div className="flex overflow-x-auto space-x-3 w-full">
+            {categories.map((category: any, i: number) => (
+              <Link
+                key={i}
+                href={`/category/${category.id}`}
+                className="flex flex-col items-center p-4 bg-gray-50 hover:bg-gray-100 rounded-lg"
+              >
+                <div className="flex cursor-pointer transform hover:scale-105 transition duration-300 w-72 justify-between items-center">
+                  <div className="flex font-medium text-center items-center text-4xl w-12">
+                    {category.icon}
+                  </div>
+                  <div className="font-medium text-center">{category.name}</div>
+                  <div className="flex text-sm text-gray-500">
+                    {category.count}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold">Шинээр нэмэгдсэн</h2>
+            <Link
+              href="/products"
+              className="text-orange-500 hover:text-orange-600 flex items-center font-semibold"
+            >
+              Бүгд <ChevronRight className="h-4 w-4 ml-1" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {featuredProducts.map((product:any,i:number) => (
+              <Card
+                key={i}
+                className="overflow-hidden hover:shadow-lg transition-shadow pt-0"
+              >
+                <Link href={`/product/${product.id}`}>
+                  <div className="aspect-video relative">
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="object-cover w-full h-full"
+                    />
+                    <Badge className="absolute top-2 right-2">
+                      {product.category.name}
+                    </Badge>
+                  </div>
+                </Link>
+
+                <CardHeader className="min-h-[30px]">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-lg">
+                      <Link 
+                        href={`/product/${product.id}`}
+                        className="hover:text-orange-600 transition-colors"
+                      >
+                        {product.title}
+                      </Link>
+                    </CardTitle>
+                    <div className="text-lg font-bold text-orange-500">
+                      {product.price}₮
+                    </div>
+                  </div>
+               
+                </CardHeader>
+
+                <CardContent>
+                  <p className="text-gray-600 line-clamp-2">
+                    {product.shortDescription}
+                  </p>
+                </CardContent>
+
+                <CardFooter className="flex justify-between border-t pt-4">
+                  <div className="flex items-center text-sm text-gray-500">
+                    <Download className="h-4 w-4 mr-1" />
+                    {product.sales} PDF
+                  </div>
+                  <div className="flex items-center">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className={`h-4 w-4 ${
+                            i < Math.floor(product.rating)
+                              ? "text-yellow-400"
+                              : "text-gray-300"
+                          }`}
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                    {/* <span className="text-sm ml-1">{product.rating}</span> */}
+                  </div>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+            Яагаад биднийг сонох вэ{" "}
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="flex flex-col items-center text-center">
+              <div className="bg-orange-100 p-4 mb-4 rounded-full">
+                <Shield className="h-8 w-8 text-orange-500" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Аюулгүй дамжуулалт</h3>
+              <p className="text-gray-600">
+                Манай системээр дамжигдах бүх мэдээлэл нь шифрлэгдсэн бөгөөд
+                таны хувийн мэдээллийг хамгаалах зорилгоор аюулгүй байдлын
+                стандартуудыг дагаж мөрддөг.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+              <div className="bg-orange-100 p-4 mb-4 rounded-full">
+                <Download className="h-8 w-8 text-orange-500" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Татаж авах</h3>
+              <p className="text-gray-600">
+                Та манай платформоос худалдан авсан бүтээгдэхүүнээ шууд татаж
+                авах боломжтой. Бид таны цагийг хэмнэхийн тулд хялбаршуулсан үйл
+                явцыг санал болгож байна.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center text-center">
+              <div className="bg-orange-100 p-4 mb-4 rounded-full">
+                <Award className="h-8 w-8 text-orange-500" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">
+                Төлбөрийн хялбар шийдэл
+              </h3>
+              <p className="text-gray-600">
+                Бид олон төрлийн төлбөрийн аргыг дэмждэг. Та qPay болон
+                SocialPay ашиглан төлбөрөө хийх боломжтой.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
