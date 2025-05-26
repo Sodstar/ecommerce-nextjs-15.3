@@ -31,13 +31,9 @@ export default function RootLayout({
       <body className="min-h-screen bg-gray-50">
         <AuthProvider>
           <main>
-            <Header />
+            {children}
+            <Toaster position="top-right" expand={false} closeButton />
           </main>
-          {children}
-          <Footer />
-          <Toaster
-            position="top-right"    expand={false} closeButton
-          />
         </AuthProvider>
       </body>
     </html>

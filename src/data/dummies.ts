@@ -1,5 +1,4 @@
 
-// Define types for our data
 export interface Product {
     id: string;
     title: string;
@@ -19,7 +18,6 @@ export interface Product {
     count: number;
   }
   
-  // Mock data for featured products
   export const featuredProducts: Product[] = [
     {
       id: '1',
@@ -89,7 +87,6 @@ export interface Product {
     }
   ];
   
-  // Mock data for categories
   export const categories: Category[] = [
     { id: '1', name: 'Айдас, уур бухимдал, ганцаардлыг үнэлэх', icon: '😡', count: 24 },
     { id: '2', name: 'Анги хамт олныг судлах', icon: '🏫', count: 98 },

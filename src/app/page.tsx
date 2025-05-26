@@ -14,12 +14,13 @@ import { Badge } from "@/components/ui/badge";
 import { featuredProducts } from "@/data/dummies";
 import { getAllCategories } from "@/actions/category-action";
 import { getFilteredProducts } from "@/actions/product-action";
+import CategoriesSection from "@/components/category-section";
 
 export default async function Home() {
   const categories = await getAllCategories();
-  const limit =4;
-  let featuredProducts = await getFilteredProducts({limit});
-  if (typeof featuredProducts === 'string') {
+  const limit = 4;
+  let featuredProducts = await getFilteredProducts({ limit });
+  if (typeof featuredProducts === "string") {
     featuredProducts = JSON.parse(featuredProducts);
   }
   if (!Array.isArray(featuredProducts)) {
@@ -66,41 +67,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      {/* Categories Section */}
-      <section className="bg-white py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold">Төрөл ангиллууд</h2>
-            <Link
-              href="/categories"
-              className="text-orange-500 hover:text-orange-600 flex items-center font-semibold"
-            >
-              Бүх ангилал <ChevronRight className="h-4 w-4 ml-1" />
-            </Link>
-          </div>
-
-          <div className="flex overflow-x-auto space-x-3 w-full">
-            {categories.map((category: any, i: number) => (
-              <Link
-                key={i}
-                href={`/category/${category.id}`}
-                className="flex flex-col items-center p-4 bg-gray-50 hover:bg-gray-100 rounded-lg"
-              >
-                <div className="flex cursor-pointer transform hover:scale-105 transition duration-300 w-72 justify-between items-center">
-                  <div className="flex font-medium text-center items-center text-4xl w-12">
-                    {category.icon}
-                  </div>
-                  <div className="font-medium text-center">{category.name}</div>
-                  <div className="flex text-sm text-gray-500">
-                    {category.count}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <CategoriesSection categories={categories} />
 
       {/* Featured Products Section */}
       <section className="py-16 bg-gray-50">
@@ -116,7 +83,7 @@ export default async function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredProducts.map((product:any,i:number) => (
+            {featuredProducts.map((product: any, i: number) => (
               <Card
                 key={i}
                 className="overflow-hidden hover:shadow-lg transition-shadow pt-0"
@@ -137,7 +104,7 @@ export default async function Home() {
                 <CardHeader className="min-h-[30px]">
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-lg">
-                      <Link 
+                      <Link
                         href={`/product/${product.id}`}
                         className="hover:text-orange-600 transition-colors"
                       >
@@ -148,7 +115,6 @@ export default async function Home() {
                       {product.price}₮
                     </div>
                   </div>
-               
                 </CardHeader>
 
                 <CardContent>
