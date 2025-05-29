@@ -1,32 +1,50 @@
 import mongoose, { Schema, Document, Model, Types } from "mongoose";
 import '@/models/Category';
-export interface IProduct extends Document {
-  _id: Types.ObjectId;
+
+export interface TProduct
+{
+  _id: string;
+  barcode: string;
+  code: string;
   title: string;
-  shortDescription: string;
-  longDescription: string;
-  download_link?: string,
+  description: string;
   price: number;
   image: string;
   stock: number;
-  rating: number;
+  stock_alert: number;
+  views: number;
   category: mongoose.Types.ObjectId;
   brand: mongoose.Types.ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
+
+}
+
+export interface IProduct extends Document {
+  _id: Types.ObjectId;
+  barcode: string;
+  code: string;
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  stock: number;
+  stock_alert: number;
+  views: number;
+  category: mongoose.Types.ObjectId;
+  brand: mongoose.Types.ObjectId;
 }
 
 const ProductSchema = new Schema<IProduct>(
   {
     _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
-    title: { type: String, required: true, unique: true },
-    shortDescription: { type: String, required: true },
-    longDescription: { type: String, required: true },
-    download_link: { type: String, required: false },
+    barcode: { type: String, required: true, unique: true },
+    code: { type: String, required: true, unique: true },
+    title: { type: String, required: true, unique: false },
+    description: { type: String, required: false },
     price: { type: Number, required: true },
     image: { type: String, required: false },
     stock: { type: Number, required: true, default: 0 },
-    rating: { type: Number, required: true, default: 0 },
+    stock_alert: { type: Number, required: true, default: 1 },
+    views: { type: Number, required: true, default: 0 },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
     brand: { type: mongoose.Schema.Types.ObjectId, ref: "Brand", required: true }
   },

@@ -1,4 +1,34 @@
+// src/app/api/seed/route.ts
 import { NextResponse } from "next/server";
+import { connectDB } from "@/lib/mongodb";
+import User from "@/models/User";
+import bcrypt from "bcryptjs";
+
+const users = [
+  {
+    name: "Sod-Od Batzorig",
+    email: "sodstar@gmail.com",
+    password: "91629162",
+    image: "https://ui-avatars.com/api/?name=Сод-Од+Батзориг&background=random",
+    role: "admin" // Admin role
+  },
+  {
+    name: "Tester 1",
+    email: "tester1@example.com",
+    password: "91629162",
+    image: "https://ui-avatars.com/api/?name=Бат+Болд&background=random",
+    role: "user" // Regular user role
+
+  },
+  {
+    name: "Tester 2",
+    email: "tester2@example.com",
+    password: "91629162",
+    image: "https://ui-avatars.com/api/?name=Саран+Наран&background=random",
+    role: "user" // Regular user role
+
+  },
+];
 
 export async function GET() {
   if (process.env.NODE_ENV === 'production') {
@@ -6,16 +36,29 @@ export async function GET() {
   }
 
   try {
-    const results = await Promise.all([
-      fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/seed/users`, { method: 'GET' }).then(res => res.json()),
-      fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/seed/categories`, { method: 'GET' }).then(res => res.json())
-      // fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/seed/products`, { method: 'GET' }).then(res => res.json())
-    ]);
+    await connectDB();
+
+    // Clear existing users
+    await User.deleteMany({});
+
+    // Hash passwords and create users
+    const createdUsers = await Promise.all(
+      users.map(async (user) => {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+
+        return User.create({
+          ...user,
+          password: hashedPassword,
+        });
+      })
+    );
 
     return NextResponse.json({
       success: true,
-      message: "Database seeded successfully",
-      results
+      message: `Seeded ${createdUsers.length} users`,
+      users: users.map(user => ({
+        email: user.email, password: user.password, role: user.role
+      }))
     });
   } catch (error) {
     console.error("Error seeding database:", error);

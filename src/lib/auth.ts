@@ -1,5 +1,5 @@
 // src/lib/auth.ts
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, User as NextAuthUser } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
@@ -10,6 +10,16 @@ import LinkedinProvider from "next-auth/providers/linkedin";
 import bcrypt from "bcryptjs";
 import { connectDB } from "./mongodb";
 import User, { UserRole } from "@/models/User";
+
+declare module "next-auth" {
+  interface User {
+    role?: UserRole;
+  }
+
+  interface AuthUser extends NextAuthUser {
+    role?: UserRole;
+  }
+}
 
 export const authConfig: NextAuthOptions = {
   providers: [
@@ -68,7 +78,7 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
@@ -77,8 +87,8 @@ export const authConfig: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
-        session.user.id = token.id as string;
-        session.user.role = token.role as UserRole;
+        (session.user as any).id = token.id as string;
+        (session.user as any).role = token.role as UserRole;
       }
       return session;
     },

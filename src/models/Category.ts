@@ -1,17 +1,23 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
+
+export interface TCategory {
+  _id: string;
+  name: string;
+  description: string;
+  slug: string;
+}
+
 export interface ICategory extends Document {
   name: string;
   description: string;
   slug: string;
-  icon: string;
 }
 
 const CategorySchema = new Schema<ICategory>({
   name: { type: String, required: true, unique: true },
   description: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
-  icon: { type: String, required: true, unique: true },
 }, { 
   timestamps: true,
   collection: 'categories' // Explicitly set collection name

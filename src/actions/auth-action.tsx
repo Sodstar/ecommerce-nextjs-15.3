@@ -2,7 +2,7 @@
 "use server";
 
 import { z } from "zod";
-import { registerSchema, loginSchema } from "@/validation/auth";
+import { registerSchema, loginSchema } from "@/lib/validation/auth";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
@@ -86,7 +86,7 @@ export async function checkIsAdmin(userId: string) {
   try {
     await connectDB();
     const user = await User.findById(userId);
-    return user?.role === 'admin';
+    return user?.role === "admin";
   } catch (error) {
     return false;
   }
