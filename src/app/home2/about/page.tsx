@@ -30,7 +30,7 @@ export default function AboutPage() {
   const timelineEvents = [
     {
       year: "2008",
-      title: "Small Beginnings",
+      title: "Small Beginning",
       description:
         "MODRN was founded in a small studio apartment with a vision to make modern design accessible.",
     },
