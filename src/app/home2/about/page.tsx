@@ -35,25 +35,25 @@ export default function AboutPage() {
         "MODRN was founded in a small studio apartment with a vision to make modern design accessible.",
     },
     {
-      year: "2015",
+      year: "2012",
       title: "First Showroom",
       description:
         "Opened our first physical location in downtown, showcasing our curated collections.",
     },
     {
-      year: "2018",
+      year: "2014",
       title: "Going Digital",
       description:
         "Launched our e-commerce platform to reach customers nationwide.",
     },
     {
-      year: "2021",
+      year: "2017",
       title: "International Expansion",
       description:
         "Began offering international shipping and opened our second showroom.",
     },
     {
-      year: "2023",
+      year: "2022",
       title: "Today",
       description:
         "Growing team of 50+ design enthusiasts serving customers worldwide.",
