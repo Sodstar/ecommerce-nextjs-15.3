@@ -63,7 +63,7 @@ export default function AboutPage() {
   // Team members data
   const teamMembers = [
     {
-      name: "Alex Wang",
+      name: "Alex Wan",
       position: "Founder & CEO",
       image:
         "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop",
