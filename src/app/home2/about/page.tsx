@@ -70,7 +70,7 @@ export default function AboutPage() {
       bio: "Former architect with a passion for accessible design",
     },
     {
-      name: "Sarah Johnson",
+      name: "Sarah John",
       position: "Design Director",
       image:
         "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop",
