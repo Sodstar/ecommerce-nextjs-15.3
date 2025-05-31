@@ -115,7 +115,7 @@ export default function AboutPage() {
         "Yes, we offer professional assembly services in select locations. You can add this service during checkout if it's available in your area.",
     },
     {
-      question: "How do I care for my MODRN furniture?",
+      question: "How do I care for my MODRN clothes?",
       answer:
         "Each piece comes with specific care instructions. Generally, we recommend regular dusting, avoiding direct sunlight for extended periods, and using coasters for drinks.",
     },
