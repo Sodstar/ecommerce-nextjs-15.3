@@ -110,7 +110,7 @@ export default function AboutPage() {
         "We offer a 30-day return policy on most items. Custom pieces and final sale items cannot be returned. All returned items must be in original condition with original packaging.",
     },
     {
-      question: "Do you offer assembly services?",
+      question: "Do you offer an assembly services?",
       answer:
         "Yes, we offer professional assembly services in select locations. You can add this service during checkout if it's available in your area.",
     },
