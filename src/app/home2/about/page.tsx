@@ -137,7 +137,7 @@ export default function AboutPage() {
               transition={{ duration: 0.5 }}
             >
               <Badge className="mb-4 bg-amber-100 text-amber-800 hover:bg-amber-200">
-                Established 2011
+                Established 2012
               </Badge>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
                 Our story and mission
